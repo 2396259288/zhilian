@@ -1,0 +1,98 @@
+<html>
+    
+        <head>
+            <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+            <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+            <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <script>
+                
+            </script>            
+        </head>
+    <body>
+      
+      <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="#" class="navbar-brand">招聘</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+      <div class="col-md-12" style="height: 50px"></div>
+
+        <input type="hidden" id="hidden" value="{{position}}">
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-1" style="text-align: center;">职位：</div>
+            <div class="col-md-1"><input class="form-control" type="text" id="job" value="{{job}}" size="5" readonly></div>
+            {%for position in positions%}
+            <div class="col-md-1" style="text-align: center;"><a href="javascript:;" onclick="click_job(this)">{{position.position_name}}</a></div>
+            <div class="clearfix visible-xs-block"></div>
+            {% endfor %}
+      </div>
+      
+      <div class="row" style="margin-top: 20px">
+          <div class="col-md-1" style="text-align: center;">城市：</div>
+          <div class="col-md-1"><input class="form-control" type="text" id="city" value="{{city}}" size="5" readonly></div>
+          <div class="col-md-1" style="text-align: center;"><a href="javascript:;" onclick="click_city(this)">全国</a></div>
+          {%for item in citys1%}
+          <div class="col-md-1" style="text-align: center;"><a href="javascript:;" onclick="click_city(this)">{{item.city}}</a></div>
+          {%endfor%}
+      </div>
+
+      <div class="row" style="margin-top: 20px">
+          <div class="col-md-1" style="text-align: center;">薪资：</div>
+          <div class="col-md-1"><input class="form-control" type="text" id="salary" value="{{salary}}" size="5" readonly></div>
+          <div class="col-md-1" style="text-align: center;"><a href="javascript:;" onclick="click_salary(this)">全部</a></div>
+          {%for item in salarys1%}
+          <div class="col-md-1" style="text-align: center;"><a href="javascript:;" onclick="click_salary(this)">{{item.salary}}</a></div>
+          {%endfor%}
+      </div>
+
+      <div class="row" style="margin-top: 20px">
+          <div class="col-md-1" style="text-align: center;">公司规模：</div>
+          <div class="col-md-1"><input class="form-control" type="text" id="company" value="{{company}}" size="5" readonly></div>
+          <div class="col-md-1" style="text-align: center;"><a href="javascript:;" onclick="click_company(this)">全部</a></div>
+          {%for item in companys%}
+          <div class="col-md-1" style="text-align: center;"><a href="javascript:;" onclick="click_company(this)">{{item.companySize}}</a></div>
+          {%endfor%}
+      </div>
+
+     
+
+      
+     <div class="row" style="margin-top: 15px">
+      {% for job in jobs %}
+      <div class="col-sm-6 col-md-6">
+        <div class="thumbnail">
+          <div class="caption">
+            <h3>{{job.name}}</h3>
+            <p>公司：{{job.companyName}}&nbsp;&nbsp;[{{job.companySize}}]&nbsp;&nbsp;[{{job.companyType}}]</p>
+            <p>{{job.city}}&nbsp;|&nbsp;{{job.workingExp}}</p>
+            <p>发布时间:{{job.time}}</p>
+            <p>薪资：{{job.salary}}&nbsp;&nbsp;&nbsp;<a href="/info?idname={{job.idName}}" class="btn btn-primary" role="button">联系</a></p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+        <script>
+            function click_job(obj){
+               obj.href="/sort/?position="+$("#hidden").val()+"&job="+obj.innerHTML+"&city="+$("#city").val()+"&salary="+$("#salary").val()+"&company="+$("#company").val();
+            }
+            function click_city(obj){
+              obj.href="/sort/?position="+$("#hidden").val()+"&city="+obj.innerHTML+"&job="+$("#job").val()+"&salary="+$("#salary").val()+"&company="+$("#company").val();
+            }
+            function click_salary(obj){
+              obj.href="/sort/?position="+$("#hidden").val()+"&salary="+obj.innerHTML+"&job="+$("#job").val()+"&city="+$("#city").val()+"&company="+$("#company").val();
+            }
+            function click_company(obj){
+              obj.href="/sort/?position="+$("#hidden").val()+"&company="+obj.innerHTML+"&job="+$("#job").val()+"&salary="+$("#salary").val()+"&city="+$("#city").val();
+            }
+        </script>
+    </body>
+</html>

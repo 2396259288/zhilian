@@ -1,0 +1,99 @@
+<html>
+    <body>
+        <head>
+            <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+            <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+            <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        </head>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="#" class="navbar-brand">招聘</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="col-md-12" style="height: 50px"></div>    
+
+    {%for job in jobs%}
+    <input type="hidden" id="hidden" value="{{job.info}}">
+    <div class = 'row' style="margin-left: 10%; margin-right: 10%">
+    <div class="col-md-12" ><h2>{{job.name}}</h2></div>
+    <div class="col-md-12" style=" background-color: gray;"><h4>所属公司：</h4></div>
+    
+    <div class="col-md-12" ><h3>{{job.companyName}}</h3></div>
+    <div class="col-md-12" style=" background-color: gray;"><h4>职位描述：</h4></div>
+    <div class="col-md-12" id='info'></div>
+    {%if job.status == 0%}
+    <div class="col-md-12" style="margin-top: 50px"><button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal">投递简历</button></div>
+    {%else%}
+    <div class="col-md-12" style="margin-top: 50px"><button type="button" class="btn btn-default btn-lg btn-block">已投递</button></div>
+    {% endif %}
+    </div>
+
+<!-- 模态框 -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">投递简历</h4>
+          </div>
+          <div class="modal-body">
+            {%for i in jianli_name%}
+            <a href="/jianli/push_jianli?idname={{idname}}" class="btn btn-primary btn-lg btn-block" role="button">{{i.jianli}}</a>
+            {%endfor%}
+            <a href="/jianli/push_jianli1?idname={{idname}}" class="btn btn-primary btn-lg btn-block" role="button">在线简历</a>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+<!-- 模态框 -->
+
+
+
+<!-- 模态框 -->
+    <!-- <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">投递简历</h4>
+          </div>
+          <form action="/jianli/push_jianli1" method="post" >
+            {%csrf_token%}
+          <div class="modal-body">
+            职位编号：<br><input type="text" name="idname" value={{job.idName}} readonly><br>
+            输入要发送的邮箱:<br><input type="text" name="email"><br>
+            输入用户名:<br><input type="text" name="username">
+          </div>
+          <div class="modal-footer"> -->
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          <!-- </div> -->
+          <!-- </form> -->
+        <!-- </div>/.modal-content -->
+      <!-- </div>/.modal-dialog -->
+    <!-- </div> -->
+
+<!-- 模态框 -->
+
+    <script>
+        var info = $('#hidden').val();
+        // alert(info);
+        $('#info').html(info);
+    </script>
+    {% endfor %}
+    </body>
+    
+</html>

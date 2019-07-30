@@ -1,0 +1,156 @@
+﻿{% load staticfiles %}
+
+
+
+
+
+<html>
+	<head>
+		<link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script>
+		function search_job(obj){
+			obj.href="/?job="+$("#exampleInputAmount").val();
+		}
+	</script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a href="#" class="navbar-brand">招聘</a>
+		      <a href="/tongji" class="navbar-brand">统计</a>
+		    </div>
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		    	<ul class="nav navbar-nav navbar-right">
+		    		{% if username %}	
+		                <li ><a href="{% url 'create_jianli' %}" rel="nofollow">创建简历</a></li>
+						<li ><a href="{% url 'show_jianli' %}" rel="nofollow">我的简历</a></li>
+						<li ><a>{{ username }}</a></li>
+		                <li><a href="{% url 'logout' %}">退出登录</a></li>
+		            {% else %}
+		            	<li><a href="{% url 'login' %}" rel="nofollow">登录</a></li> 
+						<li><a href="{% url 'register' %}" rel="nofollow">注册</a></li>
+		            {% endif %}
+		    	</ul>
+		    </div>
+		  </div>
+		</nav>
+	<div class="col-md-12" style="height: 50px"></div>
+	<div id="myCarousel" class="carousel slide">
+	<!-- 轮播（Carousel）指标 -->
+	<ol class="carousel-indicators">
+		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+		<li data-target="#myCarousel" data-slide-to="1"></li>
+		<li data-target="#myCarousel" data-slide-to="2"></li>
+	</ol>   
+	<!-- 轮播（Carousel）项目 -->
+	<div class="carousel-inner">
+		<div class="item active">
+			<img src="{%static 'images/1.jpg'%}" alt="First slide">
+		</div>
+		<div class="item">
+			<img src="{%static 'images/4.jpg'%}" alt="Second slide" height="728px">
+		</div>
+		<div class="item">
+			<img src="{%static 'images/6.jpeg'%}" alt="Third slide">
+		</div>
+	</div>
+	<!-- 轮播（Carousel）导航 -->
+		<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+
+
+	<div class="row">
+	  <div class="col-md-12">
+	  	<form class="form-inline" action="/" method="post">
+	  	  {% csrf_token %}}
+	  	  <input type="hidden" name="prepage" value="{{prepage}}">
+	  	  <input type="hidden" name="nextpage" value="{{nextpage}}">
+		  <div style="width: 25%; margin: auto; margin-top: 10px">
+		    <input type="text" class="form-control" id="exampleInputAmount" placeholder="输入想搜索的职位" value="{{job}}">
+		    <a onclick="search_job(this);" class="btn btn-primary btn-lg " role="button">搜索一下</a>
+		  </div>  
+		</form>
+	  </div>
+	</div> 
+
+
+	<div class="row">
+	  <div class="col-md-1"></div>
+	  <div class="col-md-1"></div>
+	  <div class="col-md-1" style="text-align: center;"><a href="sort/?job=java&position=技术">技术</a></div>
+	  <div class="col-md-1" style="text-align: center;"><a href="sort/?job=产品&position=产品">产品</a></div>
+	  <div class="col-md-1" style="text-align: center;"><a href="sort/?job=设计&position=设计">设计</a></div>
+	  <div class="col-md-1" style="text-align: center;"><a href="sort/?job=运营&position=运营">运营</a></div>
+	  <div class="col-md-1" style="text-align: center;"><a href="sort/?job=销售&position=市场与销售">市场与销售</a></div>
+	  <div class="col-md-1" style="text-align: center;"><a href="sort/?job=人力资源&position=职能">职能</a></div>
+	  <div class="col-md-1" style="text-align: center;"><a href="sort/?job=游戏&position=游戏">游戏</a></div>
+	  <div class="col-md-1" style="text-align: center;"></div>
+	  <div class="col-md-1" style="text-align: center;"></div>
+
+	</div>
+		<div class="row" style="margin-top: 15px">
+			<div class="col-sm-6 col-md-6">
+				<a href="/?flag=0" class="btn btn-primary btn-lg btn-block" role="button">热门职位</a>
+			</div>
+
+			<div class="col-sm-6 col-md-6">
+				<a href="/" class="btn btn-primary btn-lg btn-block" role="button">最新职位</a>
+			</div>
+
+		</div>
+		
+		<div class="row" style="margin-top: 15px">
+		  {% for job in jobs %}
+		  <div class="col-sm-6 col-md-6">
+		    <div class="thumbnail">
+		      <div class="caption">
+		        <h3>{{job.name}}</h3>
+		        <p>公司：{{job.companyName}}&nbsp;&nbsp;[{{job.companySize}}]&nbsp;&nbsp;[{{job.companyType}}]</p>
+		        <p>{{job.city}}&nbsp;|&nbsp;{{job.workingExp}}</p>
+		        <p>发布时间:{{job.time}}</p>
+		        <p>薪资：{{job.salary}}&nbsp;&nbsp;&nbsp;<a href="/info?idname={{job.idName}}" class="btn btn-primary" role="button">联系</a></p>
+		      </div>
+		    </div>
+		  </div>
+		  {% endfor %}
+		</div>
+	
+		<div class="row">
+			{% if prepage > '0' %}
+			<div class=" col-md-4">
+				<input type="hidden" name="prepage" value="{{ prepage }}">
+				<a href="/?prepage={{prepage}}&job={{job}}" class="btn btn-primary btn-lg btn-block" role="button">上一页</a>
+			</div>
+			{% endif %}
+			{% if count %}
+				{%if count == 20%}
+				<div class=" col-md-4 col-md-offset-4">
+					<form action="/">
+					<input type="hidden" name="nextpage" value="{{ nextpage }}">
+					<a href="/?nextpage={{nextpage}}&job={{job}}" class="btn btn-primary btn-lg btn-block" role="button">下一页</a>
+					</form>
+				</div>
+				{%endif%}
+			{% else %}
+			<div class=" col-md-4 col-md-offset-4">
+				<form action="/">
+				<input type="hidden" name="nextpage" value="{{ nextpage }}">
+				<a href="/?nextpage={{nextpage}}&job={{job}}" class="btn btn-primary btn-lg btn-block" role="button">下一页</a>
+				</form>
+			</div>
+			{% endif %}
+
+		</div>	
+	</form>
+	</body>
+</html>

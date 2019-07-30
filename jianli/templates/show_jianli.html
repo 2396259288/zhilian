@@ -1,0 +1,138 @@
+<html>
+    <head>
+            <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+            <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+            <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            #main{width: 21cm;margin: auto;}
+        </style>
+    </head>
+    <body>
+        
+            {% if num == 0%}
+            <script type="text/javascript">
+                alert('您还没有创建简历，请先创建简历');
+                window.location.href = '/jianli';
+            </script>
+            {%endif%}
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="#" class="navbar-brand">招聘</a>
+          <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <ul class="nav navbar-nav navbar-right">
+            {%if jianli_num == 0%}
+            <button type="button" class="btn btn-defult btn-lg " data-toggle="modal" data-target="#myModal">上传简历</button>
+            {%else%}
+            {%for i in jianli_name%}
+            <a class="navbar-brand">{{i.jianli}}</a>
+            {%endfor%}
+            <button type="button" class="btn btn-defult btn-lg " data-toggle="modal" data-target="#myModal">重新上传</button>
+            {%endif%}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+      <div class="col-md-12" style="height: 50px"></div>
+
+
+        <div id="main">
+            {%for info in basic_info%}
+            <h1 style="text-align: center;">{{info.name}}的简历</h1>
+            <div>
+                <h2>个人信息</h2>
+                <table style=" width: 100%">
+                    <tr>
+                        <td>邮箱：{{info.email}}</td><td>性别：{{info.sex}}</td>
+                    </tr>
+                </table>
+            </div>
+            <hr>
+            <div>
+                <h2>期望工作</h2>
+                <h1 style="text-align: center;">{{info.want_position}}</h1>
+            </div>
+            <hr>
+            <div>
+                <h2>教育经历</h2>
+                <h2>毕业院校：{{info.school}}</h2>
+                <h3>所学专业:{{info.prof}}</h3>
+            </div>
+            <hr>
+            <div>
+                <h2>自我介绍</h2>
+                <pre>{{info.intro}}</pre> 
+            </div>
+            <hr>
+            <div>
+                <h2>所获荣誉</h2>
+                <pre>{{info.honor}}</pre>
+            </div>
+            <hr>
+            {% endfor %}
+            {%for pro_exper in pro_expers%}
+            <div>
+                <h2>项目经验</h2>
+                
+                <pre>项目名称：{{pro_exper.name}}
+开始时间：{{pro_exper.start_date}}  结束时间：{{pro_exper.end_date}}
+项目描述：{{pro_exper.info}}
+主要负责：{{pro_exper.mian_work}}</pre>          
+                
+            </div>
+            <hr>
+            {% endfor %}
+            {%for work_exper in work_expers%}
+            <div>
+                <h2>工作经历</h2>
+                
+                <pre>工作公司：{{work_exper.company}}
+职位：{{work_exper.position}}
+薪资：{{work_exper.salary}}
+开始时间：{{work_exper.start_date}}  结束时间：{{work_exper.end_date}}
+工作内容：{{work_exper.info}}
+获得荣誉：{{work_exper.honor}}</pre>
+                
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+
+
+        <!-- 模态框 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">上传简历</h4>
+              </div>
+              <form action="/jianli/upload_jianli" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+              <div class="modal-body">
+                选择要发送的文件:<br><input type="file" name="upload">
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                <input type="submit" class="btn btn-primary" value="发送">
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+              </div>
+              </form>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div>
+
+    <!-- 模态框 -->
+        
+
+    </body>
+</html>
+
+
+<!-- basic_info work_expers pro_expers -->

@@ -1,0 +1,35 @@
+<html>
+    <body>
+        <head>
+            <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+        <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        </head>
+        
+        <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="#" class="navbar-brand">招聘</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+          </ul>
+        </div>
+      </div>
+    </nav>
+        <div class="col-md-12" style="height: 50px"></div>
+
+         <div class="row">
+            {%for item in L%}
+              <div class="col-md-12">
+                <div class="thumbnail">
+                  <img src="/static/{{item}}" alt="">
+                  <div class="caption">    
+                  </div>
+                </div>
+              </div>
+            {%endfor%}
+        </div>
+    </body>
+</html>

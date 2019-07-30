@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ title }}</title>
+	<link rel="stylesheet" href="https://unpkg.com/mobi.css@3.1.1/dist/mobi.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+	<div class = 'flex-center'>
+		<div class = 'container'>
+			<div class = 'flex-center'>
+				<div class = 'unit-1-2 unit-1-on-mobile'>
+					<h1>我的招聘信息网站</h1>
+						<!-- {% if tips %}
+					<div>{{ tips }}</div>
+						{% endif %} -->
+				
+				<form class = 'form' action="{% url 'create_jianli' %}" method = 'post'>
+					{% csrf_token %}
+					<div>姓名：<input type="text" name = 'name'></div>
+					<div>性别：<select name="sex" >
+						<option value="男">男</option>
+						<option value="女">女</option>
+					</select></div>
+					<div>邮箱：<input type="email" name = 'email'></div>
+					<div>期望薪资：<input type="text" name = 'want_salary'></div>
+					<div>期望工作：<input type="text" name = 'want_position'></div>
+					<div>毕业院校：<input type="text" name = 'school'></div>
+					<div>专业：<input type="text" name = 'prof'></div>
+					<div>自我介绍：<textarea name="intro" rows="10" cols="50"></textarea></div>
+					<div>个人荣誉：<textarea name="honor" rows="10" cols="50"></textarea></div>
+					<button type = 'submit' class = 'btn btn-primary btn-block'>添加项目经验</button>
+					<!-- {% if new_password %}
+						<div>新密码：<input type="password" name = 'new_password'></div>
+					{% endif %} -->
+					<!-- <div>项目经验(可多次添加）：<br><input type="date" name = 'start_date' id = 'start_date'>--<input type="date" name="end_date" id = 'end_date'>
+						<textarea name="project" rows="10" cols="50" id="project"></textarea>
+						<button type = 'submit' class = 'btn btn-primary btn-block' id="save_pro_expre">保存</button>
+					</div>
+				
+				
+					<div>工作经历（可多次添加）：<br><input type="date" name = 'start_date'>--<input type="date" name="end_date">
+						<textarea name="work" rows="10" cols="50"></textarea></div>
+						<button type = 'submit' class = 'btn btn-primary btn-block' id="save_work_expre">保存</button>
+					<div>自我介绍：<textarea name="intro" rows="10" cols="50"></textarea></div>
+					<div>个人荣誉：<textarea name="honor" rows="10" cols="50"></textarea></div>
+					<button type = 'submit' class = 'btn btn-primary btn-block'>保存</button> -->
+				</form>
+
+				<!-- <a href="{% url 'pro_exper' %}" class="btn btn-default btn-lg  btn-block" role="button">添加项目经验</a>
+
+				<a href="#" class="btn btn-default btn-lg  btn-block" role="button">添加工作经历</a> -->
+
+					<!-- <div class = 'flex-left top-gap text-small'>
+						<div class = 'unit-2-3'>
+							<a href="{{ unit_2 }}">{{ unit_2_name }}</a>
+						</div>
+						<div class = 'unit-1-3 flex-right'>
+							<a href="{{ unit_1 }}">{{ unit_1_name }}</a>
+						</div>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if flag == 0 %}
+		<script>
+
+			alert("保存成功");
+
+		</script>
+	{% endif %}
+</body>
+</html>
