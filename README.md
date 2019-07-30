@@ -1,0 +1,2 @@
+# zhilian
+用scrapy框架爬取智联招聘网站中的招聘信息，并用Django框架搭建出网站，前端用的Bootstrap
